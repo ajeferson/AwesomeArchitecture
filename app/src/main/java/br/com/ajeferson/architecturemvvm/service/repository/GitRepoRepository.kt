@@ -6,6 +6,7 @@ import br.com.ajeferson.architecturemvvm.service.datasource.remote.GitRepoRemote
 import br.com.ajeferson.architecturemvvm.common.NetManager
 import br.com.ajeferson.architecturemvvm.service.model.Repository
 import io.reactivex.Observable
+import javax.inject.Singleton
 
 /**
  * MODEL

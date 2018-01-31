@@ -1,34 +1,29 @@
 package br.com.ajeferson.architecturemvvm.common
 
-import android.app.Activity
 import android.app.Application
-import br.com.ajeferson.architecturemvvm.di.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import br.com.ajeferson.architecturemvvm.di.components.AppComponent
+import br.com.ajeferson.architecturemvvm.di.components.DaggerAppComponent
+import br.com.ajeferson.architecturemvvm.di.modules.AppModule
 import javax.inject.Inject
 
 /**
  * Created by ajeferson on 30/01/2018.
  */
-class App: Application(), HasActivityInjector {
+class App: Application() {
+
+    lateinit var appComponent: AppComponent
 
     @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
+    lateinit var netManager: NetManager
 
     override fun onCreate() {
         super.onCreate()
-
-        DaggerAppComponent
+        appComponent = DaggerAppComponent
                 .builder()
-                .application(this)
+                .appModule(AppModule(this))
                 .build()
-                .inject(this)
-
-    }
-
-    override fun activityInjector(): AndroidInjector<Activity> {
-        return activityInjector
+        appComponent.inject(this)
+        println("Injected")
     }
 
 }

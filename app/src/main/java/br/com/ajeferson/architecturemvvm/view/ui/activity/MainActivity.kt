@@ -6,16 +6,12 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import br.com.ajeferson.architecturemvvm.R
 import br.com.ajeferson.architecturemvvm.service.model.Repository
 import br.com.ajeferson.architecturemvvm.view.adapter.RepositoryRecyclerViewAdapter
 import br.com.ajeferson.architecturemvvm.databinding.ActivityMainBinding
-import br.com.ajeferson.architecturemvvm.service.common.CommonService
-import br.com.ajeferson.architecturemvvm.service.common.MainService
 import br.com.ajeferson.architecturemvvm.viewmodel.MainViewModel
 import dagger.android.AndroidInjection
-import javax.inject.Inject
 
 /**
  * VIEW
@@ -30,19 +26,12 @@ import javax.inject.Inject
  * */
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var mainService: MainService
-
-    @Inject
-    lateinit var commonService: CommonService
-
     private lateinit var binding: ActivityMainBinding
     private val repositoryRecyclerViewAdapter by lazy {
         RepositoryRecyclerViewAdapter(listOf(), didTouchItem)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -54,8 +43,6 @@ class MainActivity : AppCompatActivity() {
         binding.repositoryRv.adapter = repositoryRecyclerViewAdapter
         viewModel.repositories.observe(this, Observer<List<Repository>> { it?.let { repositoryRecyclerViewAdapter.replaceData(it) } })
 
-        Log.d(TAG, mainService.sayHello())
-        Log.d(TAG, commonService.sayHello())
 
     }
 

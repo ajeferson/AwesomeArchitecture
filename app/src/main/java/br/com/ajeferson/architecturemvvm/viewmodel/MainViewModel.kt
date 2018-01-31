@@ -4,6 +4,10 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
+import br.com.ajeferson.architecturemvvm.common.App
+import br.com.ajeferson.architecturemvvm.common.NetManager
+import br.com.ajeferson.architecturemvvm.di.components.DaggerViewModelComponent
+import br.com.ajeferson.architecturemvvm.di.modules.ViewModelModule
 import br.com.ajeferson.architecturemvvm.service.repository.GitRepoRepository
 import br.com.ajeferson.architecturemvvm.service.model.Repository
 import br.com.ajeferson.architecturemvvm.extensions.plusAssign
@@ -26,7 +30,7 @@ import io.reactivex.schedulers.Schedulers
  * Exposes streams of data relevant to the VIEW
  * Exposes state for the VIEW
  */
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : BaseViewModel(application) {
 
     private  var gitRepoRepository = GitRepoRepository(getApplication())
     private var compositeDisposable = CompositeDisposable()
