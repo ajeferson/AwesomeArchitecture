@@ -1,15 +1,18 @@
 package br.com.ajeferson.architecturemvvm.service.datasource.local
 
 import br.com.ajeferson.architecturemvvm.service.model.Repository
+import dagger.Reusable
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 /**
  * Created by ajeferson on 27/01/2018.
  */
-class GitRepoLocalDataSource {
+@Reusable
+class GitRepoLocalDataSource @Inject constructor() {
 
     fun getGitRepositories(): Observable<List<Repository>> {
         val repositories = listOf(

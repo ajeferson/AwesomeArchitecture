@@ -2,7 +2,7 @@ package br.com.ajeferson.architecturemvvm.common
 
 import android.content.Context
 import android.net.ConnectivityManager
-import br.com.ajeferson.architecturemvvm.di.annotations.ApplicationContext
+import br.com.ajeferson.architecturemvvm.di.annotation.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 

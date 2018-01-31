@@ -1,10 +1,11 @@
-package br.com.ajeferson.architecturemvvm.di.components
+package br.com.ajeferson.architecturemvvm.di.component
 
 import android.content.Context
 import br.com.ajeferson.architecturemvvm.common.App
 import br.com.ajeferson.architecturemvvm.common.NetManager
-import br.com.ajeferson.architecturemvvm.di.annotations.ApplicationContext
-import br.com.ajeferson.architecturemvvm.di.modules.AppModule
+import br.com.ajeferson.architecturemvvm.di.annotation.ApplicationContext
+import br.com.ajeferson.architecturemvvm.di.module.AppModule
+import br.com.ajeferson.architecturemvvm.service.datasource.remote.GitRepoRemoteDataSource
 import dagger.Component
 import javax.inject.Singleton
 
@@ -16,6 +17,7 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(app: App)
+    fun inject(dataSource: GitRepoRemoteDataSource)
 
     @ApplicationContext
     fun context(): Context

@@ -1,9 +1,9 @@
 package br.com.ajeferson.architecturemvvm.common
 
 import android.app.Application
-import br.com.ajeferson.architecturemvvm.di.components.AppComponent
-import br.com.ajeferson.architecturemvvm.di.components.DaggerAppComponent
-import br.com.ajeferson.architecturemvvm.di.modules.AppModule
+import br.com.ajeferson.architecturemvvm.di.component.AppComponent
+import br.com.ajeferson.architecturemvvm.di.component.DaggerAppComponent
+import br.com.ajeferson.architecturemvvm.di.module.AppModule
 import javax.inject.Inject
 
 /**

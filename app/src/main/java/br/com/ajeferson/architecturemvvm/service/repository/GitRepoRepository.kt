@@ -1,12 +1,12 @@
 package br.com.ajeferson.architecturemvvm.service.repository
 
-import android.content.Context
 import br.com.ajeferson.architecturemvvm.service.datasource.local.GitRepoLocalDataSource
 import br.com.ajeferson.architecturemvvm.service.datasource.remote.GitRepoRemoteDataSource
 import br.com.ajeferson.architecturemvvm.common.NetManager
 import br.com.ajeferson.architecturemvvm.service.model.Repository
+import dagger.Reusable
 import io.reactivex.Observable
-import javax.inject.Singleton
+import javax.inject.Inject
 
 /**
  * MODEL
@@ -18,20 +18,23 @@ import javax.inject.Singleton
  * Holds the entire business logic
  * Make caching
  */
-class GitRepoRepository(context: Context) {
+@Reusable
+class GitRepoRepository @Inject constructor() {
 
-    private val localDataSource = GitRepoLocalDataSource()
-    private val remoteDataSource = GitRepoRemoteDataSource()
-    private val netManager = NetManager(context)
+    @Inject
+    lateinit var localDataSource: GitRepoLocalDataSource
+
+    @Inject
+    lateinit var remoteDataSource: GitRepoRemoteDataSource
+
+    @Inject
+    lateinit var netManager: NetManager
 
     fun getGitRepositories(): Observable<List<Repository>> {
         netManager.isConnectedToInternet?.let {
             if(it) {
                 //TODO Save repositories to local data store
-//                return remoteDataSource.getGitRepositories().doOnNext {
-//                    localDataSource.saveRepositories(it)
-//                }
-                remoteDataSource.getGitRepositories().flatMap {
+                return remoteDataSource.getGitRepositories().flatMap {
                     return@flatMap localDataSource.saveRepositories(it)
                             .toSingleDefault(it)
                             .toObservable()

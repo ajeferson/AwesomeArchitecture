@@ -1,4 +1,4 @@
-package br.com.ajeferson.architecturemvvm.di.annotations
+package br.com.ajeferson.architecturemvvm.di.annotation
 
 import javax.inject.Qualifier
 

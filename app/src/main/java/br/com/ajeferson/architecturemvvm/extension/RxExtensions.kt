@@ -1,4 +1,4 @@
-package br.com.ajeferson.architecturemvvm.extensions
+package br.com.ajeferson.architecturemvvm.extension
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

@@ -5,16 +5,16 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
 import br.com.ajeferson.architecturemvvm.common.App
-import br.com.ajeferson.architecturemvvm.common.NetManager
-import br.com.ajeferson.architecturemvvm.di.components.DaggerViewModelComponent
-import br.com.ajeferson.architecturemvvm.di.modules.ViewModelModule
+import br.com.ajeferson.architecturemvvm.di.component.DaggerViewModelComponent
+import br.com.ajeferson.architecturemvvm.di.module.ViewModelModule
 import br.com.ajeferson.architecturemvvm.service.repository.GitRepoRepository
 import br.com.ajeferson.architecturemvvm.service.model.Repository
-import br.com.ajeferson.architecturemvvm.extensions.plusAssign
+import br.com.ajeferson.architecturemvvm.extension.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * VIEW_MODEL
@@ -30,14 +30,27 @@ import io.reactivex.schedulers.Schedulers
  * Exposes streams of data relevant to the VIEW
  * Exposes state for the VIEW
  */
-class MainViewModel(application: Application) : BaseViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private  var gitRepoRepository = GitRepoRepository(getApplication())
+    @Inject
+    lateinit var gitRepoRepository: GitRepoRepository
+
     private var compositeDisposable = CompositeDisposable()
 
     val text = ObservableField("old data")
     val isLoading = ObservableField(false)
     var repositories = MutableLiveData<List<Repository>>()
+
+    init {
+        (application as? App)?.let {
+            DaggerViewModelComponent
+                    .builder()
+                    .viewModelModule(ViewModelModule(this))
+                    .appComponent(it.appComponent)
+                    .build()
+                    .inject(this)
+        }
+    }
 
     fun loadRepositories() {
         isLoading.set(true)
