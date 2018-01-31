@@ -4,7 +4,6 @@ import br.com.ajeferson.architecturemvvm.service.datasource.local.GitRepoLocalDa
 import br.com.ajeferson.architecturemvvm.service.datasource.remote.GitRepoRemoteDataSource
 import br.com.ajeferson.architecturemvvm.common.NetManager
 import br.com.ajeferson.architecturemvvm.service.model.Repository
-import dagger.Reusable
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -18,7 +17,6 @@ import javax.inject.Inject
  * Holds the entire business logic
  * Make caching
  */
-@Reusable
 class GitRepoRepository @Inject constructor() {
 
     @Inject

@@ -1,28 +1,34 @@
 package br.com.ajeferson.architecturemvvm.di.component
 
-import android.content.Context
 import br.com.ajeferson.architecturemvvm.common.App
-import br.com.ajeferson.architecturemvvm.common.NetManager
-import br.com.ajeferson.architecturemvvm.di.annotation.ApplicationContext
 import br.com.ajeferson.architecturemvvm.di.module.AppModule
-import br.com.ajeferson.architecturemvvm.service.datasource.remote.GitRepoRemoteDataSource
+import br.com.ajeferson.architecturemvvm.di.module.BuildersModule
+import dagger.BindsInstance
 import dagger.Component
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 /**
  * Created by ajeferson on 30/01/2018.
  */
 @Singleton
-@Component(modules = [AppModule::class])
+@Component(modules = [
+    AndroidSupportInjectionModule::class,
+    AppModule::class,
+    BuildersModule::class])
 interface AppComponent {
 
+    @Component.Builder
+    interface Builder {
+
+        @BindsInstance
+        fun application(app: App): Builder
+
+        fun build(): AppComponent
+
+    }
+
     fun inject(app: App)
-    fun inject(dataSource: GitRepoRemoteDataSource)
-
-    @ApplicationContext
-    fun context(): Context
-
-    fun netManager(): NetManager
 
     /**
      * These methods represent the "roots" of the dependency graph

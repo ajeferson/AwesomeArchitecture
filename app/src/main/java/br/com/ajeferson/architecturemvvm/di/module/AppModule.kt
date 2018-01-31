@@ -1,7 +1,6 @@
 package br.com.ajeferson.architecturemvvm.di.module
 
 import android.content.Context
-import br.com.ajeferson.architecturemvvm.di.annotation.ApplicationContext
 import br.com.ajeferson.architecturemvvm.common.App
 import dagger.Module
 import dagger.Provides
@@ -17,11 +16,10 @@ import javax.inject.Singleton
 private const val BASE_URL = "http://www.test.com/"
 
 @Module
-class AppModule(private val app: App) {
+class AppModule {
 
     @Provides
-    @ApplicationContext
-    fun provideContext(): Context = app.applicationContext
+    fun provideContext(app: App): Context = app.applicationContext
 
     @Singleton
     @Provides

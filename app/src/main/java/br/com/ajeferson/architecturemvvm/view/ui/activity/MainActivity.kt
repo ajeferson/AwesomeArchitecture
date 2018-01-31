@@ -11,7 +11,9 @@ import br.com.ajeferson.architecturemvvm.service.model.Repository
 import br.com.ajeferson.architecturemvvm.view.adapter.RepositoryRecyclerViewAdapter
 import br.com.ajeferson.architecturemvvm.databinding.ActivityMainBinding
 import br.com.ajeferson.architecturemvvm.viewmodel.MainViewModel
+import br.com.ajeferson.architecturemvvm.viewmodel.MainViewModelFactory
 import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 /**
  * VIEW
@@ -26,23 +28,28 @@ import dagger.android.AndroidInjection
  * */
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var mainViewModelFactory: MainViewModelFactory
+
+
+
     private lateinit var binding: ActivityMainBinding
     private val repositoryRecyclerViewAdapter by lazy {
         RepositoryRecyclerViewAdapter(listOf(), didTouchItem)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
         binding.viewModel = viewModel
         binding.executePendingBindings()
 
         binding.repositoryRv.layoutManager = LinearLayoutManager(this)
         binding.repositoryRv.adapter = repositoryRecyclerViewAdapter
         viewModel.repositories.observe(this, Observer<List<Repository>> { it?.let { repositoryRecyclerViewAdapter.replaceData(it) } })
-
 
     }
 

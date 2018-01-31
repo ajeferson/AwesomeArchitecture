@@ -1,12 +1,8 @@
 package br.com.ajeferson.architecturemvvm.viewmodel
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
-import br.com.ajeferson.architecturemvvm.common.App
-import br.com.ajeferson.architecturemvvm.di.component.DaggerViewModelComponent
-import br.com.ajeferson.architecturemvvm.di.module.ViewModelModule
 import br.com.ajeferson.architecturemvvm.service.repository.GitRepoRepository
 import br.com.ajeferson.architecturemvvm.service.model.Repository
 import br.com.ajeferson.architecturemvvm.extension.plusAssign
@@ -30,27 +26,13 @@ import javax.inject.Inject
  * Exposes streams of data relevant to the VIEW
  * Exposes state for the VIEW
  */
-class MainViewModel(application: Application) : AndroidViewModel(application) {
-
-    @Inject
-    lateinit var gitRepoRepository: GitRepoRepository
+class MainViewModel(private val gitRepoRepository: GitRepoRepository) : ViewModel() {
 
     private var compositeDisposable = CompositeDisposable()
 
     val text = ObservableField("old data")
     val isLoading = ObservableField(false)
     var repositories = MutableLiveData<List<Repository>>()
-
-    init {
-        (application as? App)?.let {
-            DaggerViewModelComponent
-                    .builder()
-                    .viewModelModule(ViewModelModule(this))
-                    .appComponent(it.appComponent)
-                    .build()
-                    .inject(this)
-        }
-    }
 
     fun loadRepositories() {
         isLoading.set(true)

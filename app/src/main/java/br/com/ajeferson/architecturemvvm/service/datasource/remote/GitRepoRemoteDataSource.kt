@@ -2,7 +2,6 @@ package br.com.ajeferson.architecturemvvm.service.datasource.remote
 
 import br.com.ajeferson.architecturemvvm.common.NetManager
 import br.com.ajeferson.architecturemvvm.service.model.Repository
-import dagger.Reusable
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -10,7 +9,6 @@ import javax.inject.Inject
 /**
  * Created by ajeferson on 27/01/2018.
  */
-@Reusable
 class GitRepoRemoteDataSource @Inject constructor() {
 
     @Inject
