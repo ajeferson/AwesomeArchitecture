@@ -3,7 +3,8 @@ package br.com.ajeferson.architecturemvvm.service.datasource.remote
 import br.com.ajeferson.architecturemvvm.common.NetManager
 import br.com.ajeferson.architecturemvvm.service.model.Repository
 import io.reactivex.Observable
-import java.util.concurrent.TimeUnit
+import retrofit2.Retrofit
+import retrofit2.http.GET
 import javax.inject.Inject
 
 /**
@@ -12,15 +13,17 @@ import javax.inject.Inject
 class GitRepoRemoteDataSource @Inject constructor() {
 
     @Inject
-    lateinit var netManager: NetManager
+    lateinit var api: Api
 
     fun getGitRepositories(): Observable<List<Repository>> {
-        val repositories = listOf(
-                Repository("First Remote", "Owner 1", 100, false),
-                Repository("Second Remote", "Owner 2", 200, true),
-                Repository("Third Remote", "Owner 3", 300, true)
-        )
-        return Observable.just(repositories).delay(2, TimeUnit.SECONDS)
+        return api.index()
+    }
+
+    interface Api {
+
+        @GET("/repositories")
+        fun index(): Observable<List<Repository>>
+
     }
 
 }

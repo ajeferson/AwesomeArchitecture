@@ -11,7 +11,7 @@ import br.com.ajeferson.architecturemvvm.service.model.Repository
 import br.com.ajeferson.architecturemvvm.view.adapter.RepositoryRecyclerViewAdapter
 import br.com.ajeferson.architecturemvvm.databinding.ActivityMainBinding
 import br.com.ajeferson.architecturemvvm.viewmodel.MainViewModel
-import br.com.ajeferson.architecturemvvm.viewmodel.MainViewModelFactory
+import br.com.ajeferson.architecturemvvm.viewmodel.factory.MainViewModelFactory
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 

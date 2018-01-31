@@ -13,7 +13,7 @@ import javax.inject.Singleton
  * Created by ajeferson on 30/01/2018.
  */
 
-private const val BASE_URL = "http://www.test.com/"
+private const val BASE_URL = "http://private-ae22ef-bob40.apiary-mock.com/"
 
 @Module
 class AppModule {

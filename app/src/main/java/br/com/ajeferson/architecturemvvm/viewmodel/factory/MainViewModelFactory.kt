@@ -1,8 +1,9 @@
-package br.com.ajeferson.architecturemvvm.viewmodel
+package br.com.ajeferson.architecturemvvm.viewmodel.factory
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import br.com.ajeferson.architecturemvvm.service.repository.GitRepoRepository
+import br.com.ajeferson.architecturemvvm.viewmodel.MainViewModel
 
 /**
  * Created by ajeferson on 31/01/2018.
