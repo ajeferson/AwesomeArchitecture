@@ -3,14 +3,13 @@ package br.com.ajeferson.architecturemvvm.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
-import br.com.ajeferson.architecturemvvm.service.repository.GitRepoRepository
-import br.com.ajeferson.architecturemvvm.service.model.Repository
+import br.com.ajeferson.architecturemvvm.service.repository.UserRepository
+import br.com.ajeferson.architecturemvvm.service.model.User
 import br.com.ajeferson.architecturemvvm.extension.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 /**
  * VIEW_MODEL
@@ -26,32 +25,35 @@ import javax.inject.Inject
  * Exposes streams of data relevant to the VIEW
  * Exposes state for the VIEW
  */
-class MainViewModel(private val gitRepoRepository: GitRepoRepository) : ViewModel() {
+class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     private var compositeDisposable = CompositeDisposable()
 
     val text = ObservableField("old data")
     val isLoading = ObservableField(false)
-    var repositories = MutableLiveData<List<Repository>>()
+    val hasError = ObservableField(false)
+    var users = MutableLiveData<List<User>>()
 
-    fun loadRepositories() {
+    fun loadUsers() {
         isLoading.set(true)
-        compositeDisposable += gitRepoRepository
-                .getGitRepositories()
+        compositeDisposable += userRepository
+                .getUsers()
                 .subscribeOn(Schedulers.newThread()) // Which thread the observable will be created
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object: DisposableObserver<List<Repository>>() {
+                .subscribeWith(object: DisposableObserver<List<User>>() {
 
             override fun onComplete() {
                 isLoading.set(false)
+                hasError.set(false)
             }
 
-            override fun onNext(data: List<Repository>) {
-                repositories.value = data
+            override fun onNext(data: List<User>) {
+                users.value = data
             }
 
             override fun onError(e: Throwable) {
-                // TODO
+                isLoading.set(false)
+                hasError.set(true)
             }
 
         })

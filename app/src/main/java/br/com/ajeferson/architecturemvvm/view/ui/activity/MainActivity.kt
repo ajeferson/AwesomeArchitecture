@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import br.com.ajeferson.architecturemvvm.R
-import br.com.ajeferson.architecturemvvm.service.model.Repository
+import br.com.ajeferson.architecturemvvm.service.model.User
 import br.com.ajeferson.architecturemvvm.view.adapter.RepositoryRecyclerViewAdapter
 import br.com.ajeferson.architecturemvvm.databinding.ActivityMainBinding
 import br.com.ajeferson.architecturemvvm.viewmodel.MainViewModel
@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.executePendingBindings()
 
-        binding.repositoryRv.layoutManager = LinearLayoutManager(this)
-        binding.repositoryRv.adapter = repositoryRecyclerViewAdapter
-        viewModel.repositories.observe(this, Observer<List<Repository>> { it?.let { repositoryRecyclerViewAdapter.replaceData(it) } })
+        binding.userRv.layoutManager = LinearLayoutManager(this)
+        binding.userRv.adapter = repositoryRecyclerViewAdapter
+        viewModel.users.observe(this, Observer<List<User>> { it?.let { repositoryRecyclerViewAdapter.replaceData(it) } })
 
     }
 

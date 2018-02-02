@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/repository_rv"
+            android:id="@+id/user_rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:indeterminate="true"
@@ -39,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/rv_item_repository" />
+            tools:listitem="@layout/rv_item_user" />
 
 
 
@@ -51,7 +51,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:onClick="@{() -> viewModel.loadRepositories()}"
+            android:onClick="@{() -> viewModel.loadUsers()}"
             android:clickable="@{viewModel.isLoading ? false : true}"
             android:text="@string/refresh"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -59,6 +59,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/load_error_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/load_error"
+            android:textSize="18sp"
+            android:visibility="@{viewModel.hasError ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

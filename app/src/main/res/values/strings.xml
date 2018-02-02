@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">ArchitectureMvvm</string>
+    <string name="app_name">MVVM Architecture</string>
     <string name="has_issues">HAS ISSUES</string>
     <string name="fetch_data">Fetch Data</string>
     <string name="refresh">Refresh</string>
+    <string name="load_error">Could not load users =(</string>
 </resources>

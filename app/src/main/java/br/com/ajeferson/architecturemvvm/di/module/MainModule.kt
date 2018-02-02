@@ -1,7 +1,7 @@
 package br.com.ajeferson.architecturemvvm.di.module
 
-import br.com.ajeferson.architecturemvvm.service.datasource.remote.GitRepoRemoteDataSource
-import br.com.ajeferson.architecturemvvm.service.repository.GitRepoRepository
+import br.com.ajeferson.architecturemvvm.service.datasource.remote.UserRemoteDataSource
+import br.com.ajeferson.architecturemvvm.service.repository.UserRepository
 import br.com.ajeferson.architecturemvvm.viewmodel.factory.MainViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -14,9 +14,9 @@ import retrofit2.Retrofit
 class MainModule {
 
     @Provides
-    fun provideMainViewModelFactory(gitRepoRepository: GitRepoRepository) = MainViewModelFactory(gitRepoRepository)
+    fun provideMainViewModelFactory(userRepository: UserRepository) = MainViewModelFactory(userRepository)
 
     @Provides
-    fun provideGitRepoRemoteDataSourceApi(retrofit: Retrofit): GitRepoRemoteDataSource.Api = retrofit.create(GitRepoRemoteDataSource.Api::class.java)
+    fun provideGitRepoRemoteDataSourceApi(retrofit: Retrofit): UserRemoteDataSource.Api = retrofit.create(UserRemoteDataSource.Api::class.java)
 
 }
