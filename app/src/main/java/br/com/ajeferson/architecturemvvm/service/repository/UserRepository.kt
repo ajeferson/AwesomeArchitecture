@@ -31,12 +31,10 @@ class UserRepository @Inject constructor() {
     fun getUsers(): Observable<List<User>> {
         netManager.isConnectedToInternet?.let {
             if(it) {
-                //TODO Save users to local data store
-                return remoteDataSource.getUsers().flatMap {
-                    return@flatMap localDataSource.saveUsers(it)
-                            .toSingleDefault(it)
-                            .toObservable()
-                }
+                return remoteDataSource.getUsers()
+                        .doOnNext {
+                            localDataSource.saveUsers(it)
+                        }
             }
         }
         return localDataSource.getUsers()

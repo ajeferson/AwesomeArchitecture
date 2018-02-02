@@ -3,6 +3,7 @@ package br.com.ajeferson.architecturemvvm.di.component
 import br.com.ajeferson.architecturemvvm.common.App
 import br.com.ajeferson.architecturemvvm.di.module.AppModule
 import br.com.ajeferson.architecturemvvm.di.module.BuildersModule
+import br.com.ajeferson.architecturemvvm.di.module.DatabaseModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
@@ -15,6 +16,7 @@ import javax.inject.Singleton
 @Component(modules = [
     AndroidSupportInjectionModule::class,
     AppModule::class,
+    DatabaseModule::class,
     BuildersModule::class])
 interface AppComponent {
 
